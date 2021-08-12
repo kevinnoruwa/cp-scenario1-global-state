@@ -7,8 +7,24 @@ export const useStateContext = () => {
 };
 
 export const EMProvider = ({ children }) => {
+  const openModalAction = () => {
+    setNewState({
+      ...newState,
+      openModal: true,
+    });
+  };
+
+  const closeModalAction = () => {
+    setNewState({
+      ...newState,
+      openModal: false,
+    });
+  };
+
   const [newState, setNewState] = useState({
     openModal: false,
+    openModalAction: openModalAction,
+    closeModalAction: closeModalAction,
   });
   return (
     <StateContext.Provider value={newState}>{children}</StateContext.Provider>
