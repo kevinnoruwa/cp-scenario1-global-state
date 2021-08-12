@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { useStateContext } from "./EmProvider";
+import Cookies from "js-cookie";
 
 const EmailModal = () => {
   const newState = useStateContext();
   useEffect(() => {
     document.body.addEventListener("mouseleave", () => {
-      newState.openModalAction();
+      if (Cookies.get("modalOpenedBefore") !== "true") {
+        newState.openModalAction();
+      }
     });
   }, []);
   console.log(newState);
@@ -51,7 +54,10 @@ const EmailModal = () => {
                 />
                 <button className="email-modal__button">Send</button>
               </div>
-              <div className="email-modal__decline-offer">
+              <div
+                onClick={newState.closeModalAction}
+                className="email-modal__decline-offer"
+              >
                 Sorry, I'm not interested
               </div>
             </div>
