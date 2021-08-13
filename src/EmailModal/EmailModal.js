@@ -6,9 +6,9 @@ const EmailModal = () => {
   const newState = useStateContext();
   useEffect(() => {
     document.body.addEventListener("mouseleave", () => {
-      // if (Cookies.get("modalOpenedBefore") !== "true") {
-      // }
-      newState.openModalAction();
+      if (Cookies.get("modalOpenedBefore") !== "true") {
+        newState.openModalAction();
+      }
     });
   }, []);
   console.log(newState);
