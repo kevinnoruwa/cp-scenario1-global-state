@@ -8,27 +8,30 @@ export const useStateContext = () => {
 };
 
 export const EMProvider = ({ children }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const openModalAction = () => {
     Cookies.set("modalOpenedBefore", true, { expires: 7 });
-    setNewState({
-      ...newState,
-      openModal: true,
-    });
+    setModalOpen(true);
   };
 
   const closeModalAction = () => {
-    setNewState({
-      ...newState,
-      openModal: false,
-    });
+    setModalOpen(false);
   };
 
-  const [newState, setNewState] = useState({
-    openModal: false,
-    openModalAction: openModalAction,
-    closeModalAction: closeModalAction,
-  });
+  const [email, setEmail] = useState("");
+
+  const handleEmailInput = (e) => {
+    setEmail(e.target.value);
+  };
+
   return (
-    <StateContext.Provider value={newState}>{children}</StateContext.Provider>
+    <StateContext.Provider
+      value={
+        (email, handleEmailInput, modalOpen, openModalAction, closeModalAction)
+      }
+    >
+      {children}
+    </StateContext.Provider>
   );
 };
